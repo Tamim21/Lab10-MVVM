@@ -1,5 +1,6 @@
 package Model;
 import java.sql.*;
+
 /**
  *
  * @author Tamim
@@ -10,7 +11,6 @@ public class ProductItem {
     String password = "";
     
     public ProductItem(){
-        
         try {
             Connection cn = DriverManager .getConnection(url,username,password);
             Statement state = cn.createStatement();
