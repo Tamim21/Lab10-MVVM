@@ -1,8 +1,6 @@
 package Model;
 import java.sql.*;
-import ViewModel.*;
 import java.util.ArrayList;
-
 /**
  *
  * @author Tamim
@@ -10,16 +8,13 @@ import java.util.ArrayList;
 public class ProductItem {
     private String url = "jdbc:mysql://localhost:3306/test";
     private String username = "root";
-    private String password = "T@m10102002";
+    private String password = "";
     private ArrayList <String> name = new ArrayList<String>();
     private ArrayList <String> Id = new ArrayList<String>();;
     private ArrayList <Integer> price= new ArrayList<Integer>();
     private ArrayList <String> image= new ArrayList<String>();
     private ArrayList <Integer> item= new ArrayList<Integer>();
     
-    public ProductItem(){
-       
-    }
     public void read (){
          name.clear();
          Id.clear();
@@ -55,8 +50,6 @@ public class ProductItem {
         } catch (SQLException ex) {
             System.out.println("Connection Failed");
         }
-        read();
-        
+        read();      
     }
-    
 }
