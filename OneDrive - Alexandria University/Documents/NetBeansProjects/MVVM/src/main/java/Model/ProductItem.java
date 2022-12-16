@@ -8,48 +8,79 @@ import java.util.ArrayList;
 public class ProductItem {
     private String url = "jdbc:mysql://localhost:3306/test";
     private String username = "root";
-    private String password = "";
-    private ArrayList <String> name = new ArrayList<String>();
-    private ArrayList <String> Id = new ArrayList<String>();;
-    private ArrayList <Integer> price= new ArrayList<Integer>();
-    private ArrayList <String> image= new ArrayList<String>();
-    private ArrayList <Integer> item= new ArrayList<Integer>();
+    private String password = "T@m10102002";
+    public ArrayList <Phone> products = new ArrayList<>();
+    public ArrayList <Phone> cart = new ArrayList<>();
+    /*private AddProductViewModel aps;
+    private ViewProductViewModel vps;*/
     
-    public void read (){
-         name.clear();
-         Id.clear();
-         image.clear();
-         price.clear();
-         item.clear();
+
+    /*public ProductItem(AddProductViewModel aps) {
+        this.aps = aps;
+        this.aps.attachM(this);   
+    }
+    public ProductItem(ViewProductViewModel vps) {
+        this.vps = vps;
+        //this.aps.attachM(this);   
+    }*/
+    public ProductItem(){
+        readData();
+    }
+    public void readData (){
+         products.clear();
          try {
             Connection cn = DriverManager .getConnection(url,username,password);
             Statement state = cn.createStatement();
             ResultSet resultSet = state.executeQuery("select * from products");
             while(resultSet.next()) {
-                Id.add(resultSet.getString(1));
-                name.add(resultSet.getString(2));
-                price.add(resultSet.getInt(3));
-                image.add(resultSet.getString(4));
-                item.add(resultSet.getInt(5));
+                Phone pp = new Phone();
+                pp.setId(resultSet.getString(1));
+                pp.setName(resultSet.getString(2));
+                pp.setPrice(resultSet.getInt(3));
+                pp.setImage(resultSet.getString(4));
+                pp.setItems(resultSet.getInt(5));
+                products.add(pp);
             }
             cn.close();
         } catch (SQLException ex) {
             System.out.println("Connection Failed");
         }
     }
+    
     public void purchaseCompleted (String Id){
          try {
             Connection cn = DriverManager .getConnection(url,username,password);
             Statement state = cn.createStatement();
-            ResultSet resultSet = state.executeQuery("select * from products WHERE Id LIKE "+Id);
-            int items = 0;
-            while(resultSet.next()) items = resultSet.getInt(5);
-            PreparedStatement state1 = cn.prepareStatement("Update products SET items = "+Integer.toString(--items)+" where Id = "+"'"+Id+"'");
+            ResultSet resultSet1 = state.executeQuery("select * from products WHERE Id LIKE "+Id);
+            PreparedStatement state1 = cn.prepareStatement("insert into cart (Id,Name,price) select Id,Name,price from products where Id IN('" + Id + "')");
             state1.execute();
+            int items = 0;
+            while(resultSet1.next()) items = resultSet1.getInt(5);
+            PreparedStatement state2 = cn.prepareStatement("Update products SET items = "+Integer.toString(--items)+" where Id = "+"'"+Id+"'");
+            state2.execute();
             cn.close();
         } catch (SQLException ex) {
             System.out.println("Connection Failed");
         }
-        read();      
+        readData();      
     }
+    public void readCart (){
+        cart.clear();
+         try {
+            Connection cn = DriverManager .getConnection(url,username,password);
+            Statement state = cn.createStatement();
+            ResultSet resultSet = state.executeQuery("select * from cart");
+            while(resultSet.next()) {
+                Phone pp = new Phone();
+                pp.setId(resultSet.getString(1));
+                pp.setName(resultSet.getString(2));
+                pp.setPrice(resultSet.getInt(3));
+                cart.add(pp);
+            }
+            cn.close();
+        } catch (SQLException ex) {
+            System.out.println("Connection Failed");
+        }
+    }
+    
 }

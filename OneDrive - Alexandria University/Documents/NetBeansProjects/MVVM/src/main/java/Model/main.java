@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
+
+import View.*;
 
 /**
  *
@@ -11,8 +9,17 @@ package Model;
                             //THIS CLASS IS ONLY FOR TESTING
 public class main {
     public static void main(String[] args){
+        /*AddProductScreen aps = new AddProductScreen();
+        ViewProductScreen vps = new ViewProductScreen();*/
         ProductItem p = new ProductItem();
-        p.purchaseCompleted("1");
+        p.readData();
+        p.readCart();
+        
+        for(int i = 0 ;i<p.products.size();i++)
+        System.out.println(p.products.get(i).getName());
+        
+        for(int i = 0 ;i<p.cart.size();i++)
+        System.out.println(p.cart.get(i).getName());
 
 		
     

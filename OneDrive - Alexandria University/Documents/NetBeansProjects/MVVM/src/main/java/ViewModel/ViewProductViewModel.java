@@ -1,13 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ViewModel;
+
+import Model.ProductItem;
 
 /**
  *
  * @author Tamim
  */
 public class ViewProductViewModel {
+    //private ProductItem pt = new ProductItem();
+    //private ViewProductViewModel apvm = new ViewProductViewModel();
     
 }

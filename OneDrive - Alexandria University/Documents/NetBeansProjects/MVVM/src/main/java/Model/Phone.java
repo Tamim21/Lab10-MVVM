@@ -1,9 +1,10 @@
 
+package Model;
 /**
  *
  * @author Tamim
  */
-public class ProductItem {
+public class Phone {
     private String Id;
     private String name;
     private int price;
